@@ -20,6 +20,8 @@ General
 - Revise the code for more efficiency. Rewrite the hard coded sections to a more general approach
 - Maybe a backwards conversion from .NET 4.0 to .NET 3.5 for better compatibility
 
+Upcoming release information:
+- BFL is now inoperable due to cleaning
 
 
 Version information
@@ -56,7 +58,7 @@ Version 0.03)
 
 - Improved the format of the aircraftdata generation
 
-- Added a test button to test the passing of parameters to another form. Functionality   will be expanded in the future.
+- Added a test button to test the passing of parameters to another form. Functionality will be expanded in the future.
 
 Version 0.02)
 
