@@ -1,0 +1,9 @@
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\bin\Debug\AP I.exe
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\bin\Debug\AP I.pdb
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\AP_I.Form1.resources
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\AP_I.Properties.Resources.resources
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\AP I.exe
+C:\Users\SH Tang\AppData\Local\Temporary Projects\AP I\obj\x86\Debug\AP I.pdb

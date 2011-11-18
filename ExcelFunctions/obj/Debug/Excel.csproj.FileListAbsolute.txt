@@ -1,0 +1,10 @@
+C:\Users\SH Tang\AppData\Local\Temporary Projects\Excel\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\SH Tang\AppData\Local\Temporary Projects\Excel\obj\Debug\Interop.VBIDE.dll
+C:\Users\SH Tang\AppData\Local\Temporary Projects\Excel\obj\Debug\Excel.csproj.ResolveComReference.cache
+d:\my documents\visual studio 2010\Projects\Excel\Excel\obj\Debug\ResolveAssemblyReference.cache
+d:\my documents\visual studio 2010\Projects\Excel\Excel\obj\Debug\Interop.VBIDE.dll
+d:\my documents\visual studio 2010\Projects\Excel\Excel\obj\Debug\Excel.csproj.ResolveComReference.cache
+d:\my documents\visual studio 2010\Projects\Excel\Excel\bin\Debug\Excel.dll
+d:\my documents\visual studio 2010\Projects\Excel\Excel\bin\Debug\Excel.pdb
+d:\my documents\visual studio 2010\Projects\Excel\Excel\obj\Debug\Excel.dll
+d:\my documents\visual studio 2010\Projects\Excel\Excel\obj\Debug\Excel.pdb
