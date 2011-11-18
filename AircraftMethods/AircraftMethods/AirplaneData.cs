@@ -10,13 +10,12 @@ namespace AircraftMethods
     {
         private const double DEG_TO_RAD = Math.PI / 180;
 
-        //Variables
+        #region: Variables
         //Declare string name
         private string aircraftName;
 
         //Declare initial variables
-        private double ThrustMax;
-        private double PowerMax;
+        private double MaxPower;
         private double Weight;
 
         //Aerodynamic specific parameters
@@ -25,14 +24,13 @@ namespace AircraftMethods
         private double CLMax;
         private double dCL;
         private double e;
-        private double ZeroLift;
+        private double ZeroLiftAngle;
 
         //Drag
-        private double CD0_RunningEngine;
-        private double CD0_FailedEngine;
+        private double CD0_RunningEngines;
 
         //Brake parameters
-        private double muRoll;
+        private double MuRoll;
         private double MuBrake;
 
         //Height parameters
@@ -44,24 +42,42 @@ namespace AircraftMethods
 
         //Engine paramters
         private int nrOfEngines;
+        private bool isJetPlane;
+        #endregion
 
-        //Declare variables, which are needed for the calculation
-        private double VFail = 0;
-        private double dVFail = 0.1;
-
-        //The constructor for the Plane Class
+        #region: Constructors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="airCraftname"></param>
+        /// <param name="PowerMax"></param>
+        /// <param name="Weight"></param>
+        /// <param name="AR"></param>
+        /// <param name="S"></param>
+        /// <param name="CLMax"></param>
+        /// <param name="dCL"></param>
+        /// <param name="e"></param>
+        /// <param name="ZeroLift"></param>
+        /// <param name="CD0_RunningEngines"></param>
+        /// <param name="MuBrake"></param>
+        /// <param name="muRoll"></param>
+        /// <param name="Screenheight"></param>
+        /// <param name="dTheta"></param>
+        /// <param name="thetaMax"></param>
+        /// <param name="nrOfEngines"></param>
+        /// <param name="isJetplane"></param>
         public AirplaneData(string airCraftname,
-            double ThrustMax, double Weight,
-            double AR, double S, double CLMax, double dCL, double e, double ZeroLift,
-            double CD0_RunningEngine, double CD0_FailedEngine,
-            double MuBrake, double muRoll,
+            double MaxPower, double Weight,
+            double AR, double S, double CLMax, double dCL, double e, double ZeroLiftAngle,
+            double CD0_RunningEngines, 
+            double MuBrake, double MuRoll,
             double Screenheight,
             double dTheta, double thetaMax,
-            int nrOfEngines)
+            int nrOfEngines, bool isJetplane)
         {
             this.aircraftName = airCraftname;
 
-            this.ThrustMax = ThrustMax;
+            this.MaxPower = MaxPower;
             this.Weight = Weight;
 
             this.AR = AR;
@@ -69,13 +85,12 @@ namespace AircraftMethods
             this.CLMax = CLMax;
             this.dCL = dCL;
             this.e = e;
-            this.ZeroLift = ZeroLift / DEG_TO_RAD;
+            this.ZeroLiftAngle = ZeroLiftAngle / DEG_TO_RAD;
 
-            this.CD0_RunningEngine = CD0_RunningEngine;
-            this.CD0_FailedEngine = CD0_FailedEngine;
+            this.CD0_RunningEngines = CD0_RunningEngines;
 
             this.MuBrake = MuBrake;
-            this.muRoll = muRoll;
+            this.MuRoll = MuRoll;
 
             this.Screenheight = Screenheight;
 
@@ -83,94 +98,136 @@ namespace AircraftMethods
             this.thetaMax = thetaMax;
 
             this.nrOfEngines = nrOfEngines;
+            this.isJetPlane = isJetplane ;
         }
+        #endregion:
 
-        #region: Methods to return aircraft values (Probably later needed) [Strings]
+        #region: Methods to return aircraft values 
         public string getAircraftName()
         {
             return aircraftName;
         }
 
-        public string getThrustMax()
+        public double getPowerMax()
         {
-            return ThrustMax.ToString();
+            return MaxPower;
         }
 
-        public string getWeight()
+        public double getWeight()
         {
-            return Weight.ToString();
+            return Weight;
         }
 
-        public string getAspectRatio()
+        public double getAspectRatio()
         {
-            return AR.ToString();
+            return AR;
         }
 
-        public string getSurface()
+        public double getSurface()
         {
-            return S.ToString();
+            return S;
         }
 
-        public string getCLMax()
+        public double getCLMax()
         {
-            return CLMax.ToString();
+            return CLMax;
         }
 
-        public string getdCL()
+        public double getdCL()
         {
-            return dCL.ToString();
+            return dCL;
         }
 
-        public string getOswaldFactor()
+        public double getOswaldFactor()
         {
-            return e.ToString();
+            return e;
         }
 
-        public string getZeroLift()
+        public double getZeroLift()
         {
-            return ZeroLift.ToString();
+            return ZeroLiftAngle;
         }
 
-        public string getCD0_RunningEngine()
+        public double getCD0_RunningEngine()
         {
-            return CD0_RunningEngine.ToString();
+            return CD0_RunningEngines;
         }
 
-        public string getCD1()
+        public double getmuRoll()
         {
-            return CD0_FailedEngine.ToString();
+            return MuRoll;
         }
 
-        public string getmuRoll()
+        public double getMuBrake()
         {
-            return muRoll.ToString();
+            return MuBrake;
         }
 
-        public string getMuBrake()
+        public double getScreenHeight()
         {
-            return MuBrake.ToString();
+            return Screenheight;
         }
 
-        public string getScreenHeight()
+        public double getdTheta()
         {
-            return Screenheight.ToString();
+            return dTheta;
         }
 
-        public string getdTheta()
+        public double getThetaMax()
         {
-            return dTheta.ToString();
+            return thetaMax;
         }
 
-        public string getThetaMax()
+        public int getNRofEngines()
         {
-            return thetaMax.ToString();
-        }
-
-        public string getNRofEngines()
-        {
-            return nrOfEngines.ToString();
+            return nrOfEngines;
         }
 
         #endregion:
+
+        /// <summary>
+        /// Method to summarize al the aircraft data in a dictionary object
+        /// </summary>
+        /// <returns>A dictionary object containing the parameter name, value and unit</returns>
+        private Dictionary<String, ParameterType> getAircraftData()
+        {
+            Dictionary<String, ParameterType> AircraftData = new Dictionary<string, ParameterType>();
+
+            AircraftData.Add("Aircraftname", new ParameterType("Aircraftname", aircraftName, " "));
+
+            AircraftData.Add("Weight", new ParameterType("Weight", Weight, "N"));
+
+            //Thrust data
+            if (isJetPlane)
+            {
+                AircraftData.Add("Maximum thrust", new ParameterType("Maximum thrust", MaxPower, "N"));
+            }
+            else
+            {
+                AircraftData.Add("Maximum power", new ParameterType("Maximum power", MaxPower, "W"));
+            }
+            AircraftData.Add("Nr of Engines", new ParameterType("Nr. of engines", nrOfEngines, "-"));
+
+            //Aerodynamic properties
+            AircraftData.Add("Maximum liftcoefficient", new ParameterType("Maximum liftcoefficient", CLMax, "-"));
+            AircraftData.Add("dCL/dAlpha", new ParameterType("dCL/dAlpha", dCL, "-"));
+            AircraftData.Add("Zero Lift Angle", new ParameterType("Zero Lift Angle", ZeroLiftAngle, "-"));
+
+            AircraftData.Add("CD0 Running Engines", new ParameterType("CD0 Running Engines", CD0_RunningEngines, "-"));
+            AircraftData.Add("Oswald Factor" , new ParameterType("Oswald Factor", e, "-")); 
+            AircraftData.Add("Aspect Ratio", new ParameterType("Aspect ratio", AR, "-"));
+            AircraftData.Add("Surface Area", new ParameterType("Surface area", S, "m^2"));
+
+            //Angular properties
+            AircraftData.Add("Maximum Pitch Angle", new ParameterType("Maximum Pitch Angle", thetaMax, "-"));           
+            AircraftData.Add("dTheta/dT", new ParameterType("dTheta/dT", dTheta, "-"));  
+
+            AircraftData.Add("Screenheight", new ParameterType("Screenheight", Screenheight, "m"));
+
+            //Friction properties
+            AircraftData.Add("Kinematic friction coefficient, roll", new ParameterType("Kinematic friction coefficient, roll", MuRoll, "-"));
+            AircraftData.Add("Kinematic friction coefficient, brake", new ParameterType("Kinematic friction coefficient, brake", MuBrake, "-"));
+            return AircraftData;
+        }
     }
 }
