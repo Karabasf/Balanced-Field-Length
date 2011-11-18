@@ -10,19 +10,13 @@ Excel functionality
 - Implement more functionality in the excel options
 
 GUI
-- Better inoperability between the different forms
-- Change the GUI
+- Decoupling of the plane class
+- Make a numeric textbox only
+- ?
 
-General
-- Add more functionality (e.g. specification of planes etc.)
-- Revise the comparison code for a more general and user friendly approach
-- Make a more related code
-- Revise the code for more efficiency. Rewrite the hard coded sections to a more general approach
-- Maybe a backwards conversion from .NET 4.0 to .NET 3.5 for better compatibility
-
-Upcoming release information:
-- BFL is now inoperable due to cleaning
-
+Plane class
+- Decoupling with the GUI
+- Abstract the plane further, to enhance modularity
 
 Version information
 
