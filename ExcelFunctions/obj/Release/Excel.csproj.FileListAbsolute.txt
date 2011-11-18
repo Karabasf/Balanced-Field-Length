@@ -1,7 +1,0 @@
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\bin\Release\Excel.dll
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\bin\Release\Excel.pdb
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\obj\Release\ResolveAssemblyReference.cache
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\obj\Release\Interop.VBIDE.dll
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\obj\Release\Excel.csproj.ResolveComReference.cache
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\obj\Release\Excel.dll
-D:\My Documents\Visual Studio 2010\Projects\Excel\Excel\obj\Release\Excel.pdb
