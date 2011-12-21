@@ -41,10 +41,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AirplaneData.cs" />
+<<<<<<< HEAD
     <Compile Include="ImplementMethodException.cs" />
     <Compile Include="Jetplane.cs" />
     <Compile Include="ParameterType.cs" />
     <Compile Include="Plane.cs" />
+=======
+    <Compile Include="ImplementMethodException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="JetPlane.cs">
+      <SubType>Code</SubType>
+    </None>
+    <Compile Include="ParameterType.cs" />
+    <Compile Include="Plane.cs">
+      <SubType>Code</SubType>
+    </Compile>
+>>>>>>> 6848170ba6c79befe3f2c8b5003a0f79c672aedc
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
