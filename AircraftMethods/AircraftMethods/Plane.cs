@@ -53,7 +53,6 @@ namespace AircraftMethods
         public AirplaneFailedEngine(AirplaneData planeData, double CD0_FailedEngines, int nrOfEnginesFailed)
         {
             this.planeData = planeData;
-
         }
 
         protected double calculateVmin()
