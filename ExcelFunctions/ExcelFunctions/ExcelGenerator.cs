@@ -11,119 +11,130 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ExcelGenerator
 {
-    public class ExcelFunctions
+    public class ExcelGenerator
     {
-        //Method to generate excel sheets
-        public static void Excelsheet(
-            string AircraftName,
-            string[,] AircraftDataArray,
-            double[] VFail, double[] ContinuedTakeOffDist, double[] AbortedTakeOffDist,
-            double VDecision, double BFL,
-            double[,] ArrayVATO, double[,] ArrayVCTO
-            )
+        //Define attributes
+        private Excel.Application ExcelDocument;
+        private Excel._Workbook WorkBook;
+        private Excel.Sheets ExcelSheets;           //Used to add Excel sheets
+        private Excel._Worksheet ActiveSheet;
+        private string AircraftName;
+
+        /// <summary>
+        /// Constructor for the ExcelGenerator to generate an Excelsheet
+        /// </summary>
+        /// <param name="AircraftName">The name of the aircraft, used for saving the excel file</param>
+        /// <param name="DocumentVisible">Boolean to determine whether the document should be visible during the generation of the Excel document</param>
+        /// <param name="ActiveUserControl">Boolean to determine whether user control is active during the generation of the Excel document</param>
+        public ExcelGenerator(string AircraftName, bool DocumentVisible, bool ActiveUserControl)
         {
-            //Declare variables
-            Excel.Application oXL = null;
-            Excel._Workbook WorkBook = null;
-
-            //used to add sheets
-            Excel.Sheets Sheets = null;
-
-            //Worksheets
-            Excel._Worksheet AircraftDataSheet = null;
-            Excel._Worksheet CalculationSheet = null;
-            Excel._Worksheet VDecisionSheet = null;
-            Excel._Worksheet GraphSheet = null;
+            this.AircraftName = AircraftName;
 
             try
             {
                 //Start Excel and get Application object.
-                oXL = new Excel.Application();
+                this.ExcelDocument = new Excel.Application();
+
+                //The standard active sheet is the first sheet
+                ActiveSheet = (Excel._Worksheet)WorkBook.Sheets[1];
 
                 //Visibility of excel app.
-                oXL.Visible = true;
+                ExcelDocument.Visible = DocumentVisible;
 
                 //Maintain input of the user (which should be false during generation)
-                oXL.UserControl = true;
+                ExcelDocument.UserControl = ActiveUserControl;
 
                 //Get a new workbook
-                WorkBook = (Excel._Workbook)(oXL.Workbooks.Add(Missing.Value));
+                WorkBook = (Excel._Workbook)(ExcelDocument.Workbooks.Add(Missing.Value));
 
-                //Create some sheets in the workbook:
-                Sheets = WorkBook.Sheets as Excel.Sheets;
-                GraphSheet = (Excel._Worksheet)Sheets.Add(Sheets[3], Missing.Value, Missing.Value, Missing.Value);
-
-                //Assign sheets
-                AircraftDataSheet = (Excel._Worksheet)WorkBook.Sheets[1];
-                CalculationSheet = (Excel._Worksheet)WorkBook.Sheets[2];
-                VDecisionSheet = (Excel._Worksheet)WorkBook.Sheets[3];
-                GraphSheet = (Excel._Worksheet)WorkBook.Sheets[4];
-
-                try
-                {
-                    //Adding aircraft data to the excel sheet
-                    //Adding aircraftdata
-                    AircraftDataSheet.Select(Missing.Value);
-                    AircraftData(AircraftDataSheet, AircraftDataArray);
-
-                    //Adding BFL calculation data
-                    CalculationSheet.Select(Missing.Value);
-                    DistanceVSFailureSpeed(CalculationSheet, VFail, ContinuedTakeOffDist, AbortedTakeOffDist);
-
-                    //Adding BFL Data
-                    if (VDecision != 0)
-                    {
-                        VDecisionSheet.Select(Missing.Value);
-                        BFLParameters(VDecisionSheet, VDecision, BFL);
-                        BFLVelocity(VDecisionSheet, ArrayVATO, ArrayVCTO);
-
-                        //Temp solution
-                        oXL.DisplayAlerts = false;
-                        ((Excel._Worksheet)GraphSheet).Delete();
-                        oXL.DisplayAlerts = true;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Could not find the decision speed and balanced field length", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        oXL.DisplayAlerts = false;
-                        ((Excel._Worksheet)VDecisionSheet).Delete();
-                        ((Excel._Worksheet)GraphSheet).Delete();
-                        oXL.DisplayAlerts = true;
-
-                    }
-
-                    saveExcel(WorkBook, AircraftName);
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show("Operation could not complete \n Please check if all values are in the sheet", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    throw e;
-                }
-
-                //Close the workbook
-                WorkBook.Close(false, Missing.Value, Missing.Value);
-
-                //Quit the app
-                oXL.Quit();
+                //Instantiate an Excelsheet object
+                ExcelSheets = WorkBook.Sheets as Excel.Sheets;
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Warning - Error has occured", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                //Eventually, it is needed to dump the objects used to generate the excel file
-                DumpResource(oXL);
-                DumpResource(WorkBook);
-                DumpResource(Sheets);
-                DumpResource(AircraftDataSheet);
-                DumpResource(CalculationSheet);
-                DumpResource(VDecisionSheet);
-                DumpResource(GraphSheet);
+                throw e;
             }
         }
 
-        //Method to sace the file
+        /// <summary>
+        /// Method to add an sheet in the workbook behind the specified position. Directly assigns an worksheet
+        /// </summary>
+        /// <param name="sheetName">The name of the sheet</param>
+        /// <param name="position">The position should be between 1 and the maximum amount of sheets in the workbook. If not, an ArgumentException is thrown</param>
+        /// <returns>An Excel._Worksheet object</returns>
+        public Excel._Worksheet addSheet(string sheetName, int position) 
+        {
+            //Check if the position argument is valid. If not, throw an argument exception
+            if (position <= 0)
+            {
+                throw new ArgumentException("Argument position cannot be equal or smaller than 0");
+            }
+            else if (position > WorkBook.Sheets.Count)
+            {
+                throw new ArgumentException(String.Format("Argument position is bigger than the amount of sheets, maximum is {0}", WorkBook.Sheets.Count));
+            }
+
+            //Create the new worksheet at the user specified position and rename it 
+            Excel._Worksheet newSheet = (Excel._Worksheet)ExcelSheets.Add(ExcelSheets[position], Missing.Value, Missing.Value, Missing.Value);
+            newSheet.Name = sheetName;
+            
+            return newSheet;
+        }
+
+        /// <summary>
+        /// Method to set an active Excel sheet on basis of a position
+        /// </summary>
+        /// <param name="position">The position of the sheet</param>
+        public void setActiveSheet(int position)
+        {
+            //Check if the position argument is valid. If not, throw an argument exception
+            if (position <= 0)
+            {
+                throw new ArgumentException("Argument position cannot be equal or smaller than 0");
+            }
+            else if (position > WorkBook.Sheets.Count)
+            {
+                throw new ArgumentException(String.Format("Argument position is bigger than the amount of sheets, maximum is {0}", WorkBook.Sheets.Count));
+            }
+
+            //Set the active sheet and select it (in order to display it in the Excel screen if visible)
+            ActiveSheet = (Excel._Worksheet)WorkBook.Sheets[position];
+            ActiveSheet.Select(Missing.Value);
+        }
+
+        /// <summary>
+        /// Method to set an active Excel sheet on basis of a sheet name
+        /// </summary>
+        /// <param name="sheetName">The neem of the sheet which needs to be returned</param>
+        /// <returns>If the sheet is found, an Excel._Worksheet object is returned; else null</returns>
+        public void setActiveSheet(string sheetName)
+        {
+            Excel._Worksheet returnSheet = null;
+
+            foreach (Excel._Worksheet sheet in WorkBook.Sheets)
+            {
+                if(sheet.Name.Equals(sheetName))
+                {
+                    returnSheet = sheet;
+                    break;
+                }
+            }
+
+            //If the sheet could not be found on basis of the name, throw an Argument exception.
+            //If the returnsheet could be found, assign it to the activesheet and select it (in order to make to display it)
+            if (returnSheet == null)
+            {
+                throw new ArgumentException("Invalid sheet name, sheet does not exist");
+            }
+            else
+            {
+                ActiveSheet = returnSheet;
+                ActiveSheet.Select(Missing.Value);
+            }
+
+        }
+
+        //Method to save the file
         private static void saveExcel(Excel._Workbook WorkBook, string AircraftName)
         {
             //Initiate save file dialog
@@ -460,6 +471,24 @@ namespace ExcelGenerator
         }
 
         #endregion:
+
+        /// <summary>
+        /// Method to finalize the generation of the Excel document
+        /// </summary>
+        public void Quit()
+        {
+            //Close the workbook and quit Excel 
+            WorkBook.Close(true, Missing.Value, Missing.Value);
+            ExcelDocument.Quit();
+
+            //Release the used resources
+            DumpResource(WorkBook);
+            DumpResource(ExcelDocument);
+            DumpResource(ExcelSheets);
+            DumpResource(ActiveSheet);
+        }
+
+
         //Garbage collector and releases used resources
         //To be implemented later
         private static void DumpResource(object Obj)
