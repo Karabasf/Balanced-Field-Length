@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Diagnostics;
-using System.IO;
 
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -137,40 +135,8 @@ namespace ExcelGenerator
         //Method to save the file
         private static void saveExcel(Excel._Workbook WorkBook, string AircraftName)
         {
-            //Initiate save file dialog
-            SaveFileDialog sdi = new SaveFileDialog();
-            sdi.CheckPathExists = true;
-
-            sdi.Filter = "Excel (*.xls)|*.xls";
-            sdi.InitialDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            sdi.FileName = AircraftName + " - Datasheet";
-            sdi.RestoreDirectory = true;
-            sdi.AddExtension = true;
-            sdi.CheckFileExists = false;
-
-            DialogResult messageBoxResult = DialogResult.No;
-
-            while (messageBoxResult == DialogResult.No)
-            {
-                DialogResult sdiResult = sdi.ShowDialog();
-
-                if (sdiResult == DialogResult.OK)
-                {
-                    object fileFormat = Excel.XlFileFormat.xlWorkbookNormal;
-                    string fileName = sdi.FileName;
-
-                    //Save the document
-                    WorkBook.SaveAs(fileName, fileFormat,
-                    Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlExclusive, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
-
-                    //Break out the loop if the user decides to save
-                    break;
-                }
-                else
-                {
-                    messageBoxResult = MessageBox.Show("Warning - The excel document will not be saved! \nContinue?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                }
-            }
+            WorkBook.SaveAs(fileName, fileFormat,
+                   Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlExclusive, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
         }
 
         #region: Methods to set data in the sheets
@@ -475,7 +441,7 @@ namespace ExcelGenerator
         /// <summary>
         /// Method to finalize the generation of the Excel document
         /// </summary>
-        public void Quit()
+        ~ExcelGenerator()
         {
             //Close the workbook and quit Excel 
             WorkBook.Close(true, Missing.Value, Missing.Value);
@@ -491,7 +457,7 @@ namespace ExcelGenerator
 
         //Garbage collector and releases used resources
         //To be implemented later
-        private static void DumpResource(object Obj)
+        public static void DumpResource(object Obj)
         {
             try
             {
