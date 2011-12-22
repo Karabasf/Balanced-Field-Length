@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Excel", "ExcelFunctions\Excel.csproj", "{E3D700BB-F140-45BD-8CB1-8BC0FD24DF1D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelGenerator", "ExcelFunctions\ExcelGenerator.csproj", "{E3D700BB-F140-45BD-8CB1-8BC0FD24DF1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

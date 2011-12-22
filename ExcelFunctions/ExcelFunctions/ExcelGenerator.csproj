@@ -41,7 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AxisProperties.cs" />
     <Compile Include="ExcelGenerator.cs" />
+    <Compile Include="ExcelGraph.cs" />
+    <Compile Include="ExcelLineGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
