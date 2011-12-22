@@ -32,17 +32,21 @@ namespace ExcelGenerator
         }
 
         /// <summary>
-        /// General method to set the title of a graph
+        /// Method to set the title of a graph
         /// </summary>
         /// <param name="ChartTitle">The title of the graph</param>
-        protected sealed virtual void setChartTitle(string ChartTitle)
+        protected sealed void setChartTitle(string ChartTitle)
         {
             ExcelChart.HasTitle = true;
             ExcelChart.ChartTitle.Text = ChartTitle;
         }
 
-        protected sealed virtual void implementMethod()
-        {
-        }
+
+        //TODO
+        abstract void setXAxis();
+
+        abstract void setYAxis();
+        
+        
     }
 }
