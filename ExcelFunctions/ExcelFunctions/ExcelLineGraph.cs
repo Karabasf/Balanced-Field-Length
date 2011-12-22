@@ -8,6 +8,9 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ExcelGenerator
 {
+    /// <summary>
+    /// A derived class from Excelgraph in order to draw a linegraph
+    /// </summary>
     sealed class ExcelLineGraph : ExcelGraph
     {
         public ExcelLineGraph(Excel._Worksheet targetSheet, double xLocation, double yLocation,
