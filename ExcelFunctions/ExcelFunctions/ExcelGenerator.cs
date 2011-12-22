@@ -83,7 +83,7 @@ namespace ExcelGenerator
         /// Method to set an active Excel sheet on basis of a position
         /// </summary>
         /// <param name="position">The position of the sheet</param>
-        public void setActiveSheet(int position)
+        public Excel._Worksheet selectActiveSheet(int position)
         {
             //Check if the position argument is valid. If not, throw an argument exception
             if (position <= 0)
@@ -98,14 +98,16 @@ namespace ExcelGenerator
             //Set the active sheet and select it (in order to display it in the Excel screen if visible)
             ActiveSheet = (Excel._Worksheet)WorkBook.Sheets[position];
             ActiveSheet.Select(Missing.Value);
+
+            return ActiveSheet;
         }
 
         /// <summary>
         /// Method to set an active Excel sheet on basis of a sheet name
         /// </summary>
-        /// <param name="sheetName">The neem of the sheet which needs to be returned</param>
+        /// <param name="sheetName">The name of the sheet which needs to be returned</param>
         /// <returns>If the sheet is found, an Excel._Worksheet object is returned; else null</returns>
-        public void setActiveSheet(string sheetName)
+        public Excel._Worksheet selectActiveSheet(string sheetName)
         {
             Excel._Worksheet returnSheet = null;
 
@@ -130,12 +132,13 @@ namespace ExcelGenerator
                 ActiveSheet.Select(Missing.Value);
             }
 
+            return returnSheet;
         }
 
         //Method to save the file
-        private static void saveExcel(Excel._Workbook WorkBook, string AircraftName)
+        private static void saveExcel(Excel._Workbook WorkBook, string fileName)
         {
-            WorkBook.SaveAs(fileName, fileFormat,
+            WorkBook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal,
                    Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlExclusive, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
         }
 
@@ -439,14 +442,20 @@ namespace ExcelGenerator
         #endregion:
 
         /// <summary>
-        /// Method to finalize the generation of the Excel document
+        /// Method to close the excel document
         /// </summary>
-        ~ExcelGenerator()
+        public void CloseApplication()
         {
             //Close the workbook and quit Excel 
             WorkBook.Close(true, Missing.Value, Missing.Value);
             ExcelDocument.Quit();
+        }
 
+        /// <summary>
+        /// Method to finalize the generation of the Excel document
+        /// </summary>
+        ~ExcelGenerator()
+        {
             //Release the used resources
             DumpResource(WorkBook);
             DumpResource(ExcelDocument);
