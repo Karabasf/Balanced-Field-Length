@@ -44,6 +44,6 @@ namespace ExcelGenerator
         /// <summary>
         /// Method to set the properties of an axis
         /// </summary>
-        public abstract void setAxis(IAxisProperties AxisProperty, Excel.XlAxisType AxisType);
+        public abstract void setAxis(IAxisProperties AxisProperty, LineAxisTypes AxisType);
     }
 }
