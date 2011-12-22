@@ -36,6 +36,23 @@ namespace ExcelGenerator
             this.MinorGridlines = MinorGridlines;
         }
 
+        /// <summary>
+        /// Constructor to instantiate an Axisproperty class. Class is used to hold relevant axis parameters. Tickmarks and LabelSpacing are not included
+        /// </summary>
+        /// <param name="AxisName">The title of the axis</param>
+        /// <param name="MajorGridlines">Defines whether the axis has majorgridlines</param>
+        /// <param name="MinorGridlines">Defines whether the axis has minorgridlines</param>
+        public AxisProperty(string AxisName, bool MajorGridlines, bool MinorGridlines)
+        {
+            this.AxisName = AxisName;
+
+            this.TickMarkSpacing = -1;
+            this.LabelSpacing = -1;
+
+            this.MajorGridlines = MajorGridlines;
+            this.MinorGridlines = MinorGridlines;
+        }
+
         #region: Readonly properties (interface properties)
         public string getAxisName()
         {
