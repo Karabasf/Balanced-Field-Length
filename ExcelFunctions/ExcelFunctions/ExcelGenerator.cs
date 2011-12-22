@@ -132,8 +132,11 @@ namespace ExcelGenerator
             return returnSheet;
         }
 
-        //Method to save the file
-        private static void saveExcel(Excel._Workbook WorkBook, string fileName)
+        /// <summary>
+        /// Method to save the generated excel workbook document
+        /// </summary>
+        /// <param name="fileName">Name of the file which needs to be saved</param>
+        public void saveExcel(string fileName)
         {
             WorkBook.SaveAs(fileName, Excel.XlFileFormat.xlWorkbookNormal,
                    Missing.Value, Missing.Value, Missing.Value, Missing.Value, Excel.XlSaveAsAccessMode.xlExclusive, Missing.Value, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
