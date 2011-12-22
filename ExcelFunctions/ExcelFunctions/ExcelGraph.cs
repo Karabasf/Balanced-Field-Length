@@ -24,7 +24,7 @@ namespace ExcelGenerator
         /// <param name="yLocation">The Y location (from the top) of the graph</param>
         /// <param name="xSize">The width of the graph</param>
         /// <param name="ySize">The height of the graph</param>
-        protected virtual ExcelGraph(Excel._Worksheet targetSheet, double xLocation, double yLocation, 
+        protected ExcelGraph(Excel._Worksheet targetSheet, double xLocation, double yLocation, 
             double xSize, double ySize)
         {
             this.ExcelChartObjects = (Excel.ChartObjects)targetSheet.ChartObjects(Missing.Value);
@@ -35,18 +35,28 @@ namespace ExcelGenerator
         /// Method to set the title of a graph
         /// </summary>
         /// <param name="ChartTitle">The title of the graph</param>
-        protected sealed void setChartTitle(string ChartTitle)
+        protected void setChartTitle(string ChartTitle)
         {
             ExcelChart.HasTitle = true;
             ExcelChart.ChartTitle.Text = ChartTitle;
         }
 
+        /// <summary>
+        /// Method to set the properties of the Y axis
+        /// </summary>
+        /// <param name="AxisParameters">An axisproperty object holding the parameters of the Y axis</param>
+        protected void setYAxis(IAxisProperties AxisParameters)
+        {
 
-        //TODO
-        abstract void setXAxis();
+        }
 
-        abstract void setYAxis();
-        
-        
+        /// <summary>
+        /// Method to set the properties of the X axis
+        /// </summary>
+        /// <param name="AxisParameters">An axisproperty object holding the parameters of the X axis</param>
+        protected void setXAxis(IAxisProperties AxisParameters)
+        {
+
+        }
     }
 }
