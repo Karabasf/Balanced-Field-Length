@@ -16,7 +16,6 @@ namespace ExcelGenerator
         private Excel._Workbook WorkBook;
         private Excel.Sheets ExcelSheets;           //Used to add Excel sheets
         private Excel._Worksheet ActiveSheet;
-        private string AircraftName;
 
         /// <summary>
         /// Constructor for the ExcelGenerator to generate an Excelsheet
@@ -26,8 +25,6 @@ namespace ExcelGenerator
         /// <param name="ActiveUserControl">Boolean to determine whether user control is active during the generation of the Excel document</param>
         public ExcelGenerator(string AircraftName, bool DocumentVisible, bool ActiveUserControl)
         {
-            this.AircraftName = AircraftName;
-
             try
             {
                 //Start Excel and get Application object.
