@@ -16,7 +16,11 @@ GUI
 
 Plane class
 - Decoupling with the GUI
-- Abstract the plane further, to enhance modularity
+- Abstract a Plane class and derive two subclasses (prop and a jet)
+- Add interfaces to limit accesibility to internals
+
+Functionality
+- Add/Include a XML interpreter to save and load custom defined aircraft
 
 Version information
 
